@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "jest"
+    "test": "jest",
+    "build": "mkdir -p dist && cp -r src/* dist/ && cp package.json dist/"
   },
   "dependencies": {
     "express": "^4.18.2",
