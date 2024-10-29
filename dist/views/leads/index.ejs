@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leads - AI Sales Agent</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="/dashboard">AI Sales Agent</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/leads">Leads</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Leads</h1>
+      <a href="/leads/new" class="btn btn-primary">Add New Lead</a>
+    </div>
+
+    <% if (messages.success) { %>
+      <div class="alert alert-success"><%= messages.success %></div>
+    <% } %>
+    <% if (messages.error) { %>
+      <div class="alert alert-danger"><%= messages.error %></div>
+    <% } %>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (leads && leads.length > 0) { %>
+            <% leads.forEach(function(lead) { %>
+              <tr>
+                <td><%= lead.name %></td>
+                <td><%= lead.email || '-' %></td>
+                <td><%= lead.phone || '-' %></td>
+                <td><%= lead.company || '-' %></td>
+                <td><span class="badge bg-<%= lead.status === 'new' ? 'primary' : 'success' %>"><%= lead.status %></span></td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <a href="/leads/<%= lead.id %>" class="btn btn-info">View</a>
+                    <a href="/leads/<%= lead.id %>/edit" class="btn btn-warning">Edit</a>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="6" class="text-center">No leads found</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
